@@ -21,3 +21,8 @@
 
 en:
   hello: "Hello world App"
+  home: "Home Page"
+  signin: 'Sign in'
+  signup: 'Sign up'
+  exit: 'Exit'
+  settings: 'Settings'

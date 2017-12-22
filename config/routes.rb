@@ -1,18 +1,24 @@
 Rails.application.routes.draw do
   
-  devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-  get 'welcome/index'
+  devise_for :admin_users, ActiveAdmin::Devise.config
   root 'welcome#index'
-  devise_for :users
-  resources :posts do
+  scope ":locale", locale: /#{I18n.available_locales.join("|")}/ do
     
-    member do
-      put "like", to: "posts#like"
-      put "unlike", to: "posts#unlike"
-    end
+    devise_for :users
+    resources :posts
     resources :comments
   end
+
+    resources :posts do
+    
+      member do
+        put "like", to: "posts#like"
+       put "unlike", to: "posts#unlike"
+       end
+      resources :comments
+    end
+
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
