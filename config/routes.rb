@@ -4,20 +4,17 @@ Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   root 'welcome#index'
   scope ":locale", locale: /#{I18n.available_locales.join("|")}/ do
-    
     devise_for :users
-    resources :posts
-    resources :comments
-  end
-
-    resources :posts do
-    
+    resources  :posts do
       member do
         put "like", to: "posts#like"
-       put "unlike", to: "posts#unlike"
-       end
+        put "unlike", to: "posts#unlike"
+      end
       resources :comments
     end
+  end
+end
+
 
   
   # The priority is based upon order of creation: first created -> highest priority.
@@ -74,4 +71,4 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
-end
+
